@@ -7,17 +7,39 @@ plugins {
 group = "ir.amirroid.simplechat"
 version = "1.0.0"
 application {
-    mainClass.set("ir.amirroid.simplechat.ApplicationKt")
-    
+    mainClass.set("io.ktor.server.netty.EngineMain")
+
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
 dependencies {
-    implementation(projects.shared)
     implementation(libs.logback)
-    implementation(libs.ktor.serverCore)
-    implementation(libs.ktor.serverNetty)
-    testImplementation(libs.ktor.serverTestHost)
-    testImplementation(libs.kotlin.testJunit)
+    implementation(libs.ktor.server.core)
+    implementation(libs.ktor.server.netty)
+    implementation(libs.ktor.server.config.yaml)
+    implementation(libs.ktor.auth)
+    implementation(libs.ktor.auth.jwt)
+    implementation(libs.ktor.status.pages)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.content.negotiation)
+    implementation(libs.ktor.rate.limiting)
+    implementation(libs.ktor.cors)
+    implementation(libs.ktor.websockets)
+
+    // Exposed
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
+    implementation(libs.exposed.dao)
+    implementation(libs.exposed.datetime)
+
+    // Postgres
+    implementation(libs.postgresql)
+
+    // Koin
+    implementation(libs.koin.core)
+    implementation(libs.koin.ktor)
+
+    // Modules
+    implementation(projects.shared)
 }
