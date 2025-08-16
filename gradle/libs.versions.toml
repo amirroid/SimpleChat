@@ -8,6 +8,7 @@ androidx-appcompat = "1.7.1"
 androidx-core = "1.17.0"
 androidx-espresso = "3.7.0"
 androidx-lifecycle = "2.9.1"
+argon2Jvm = "2.12"
 composeMultiplatform = "1.8.2"
 kotlin = "2.2.0"
 kotlinx-coroutines = "1.10.2"
@@ -19,6 +20,7 @@ koin = "4.1.0"
 exposed = "1.0.0-beta-5"
 
 [libraries]
+argon2-jvm = { module = "de.mkammerer:argon2-jvm", version.ref = "argon2Jvm" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-espresso" }

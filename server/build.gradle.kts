@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.ktor)
+    alias(libs.plugins.kotlinx.serialization)
     application
 }
 
@@ -42,4 +43,7 @@ dependencies {
 
     // Modules
     implementation(projects.shared)
+
+    // Argon2
+    implementation(libs.argon2.jvm)
 }

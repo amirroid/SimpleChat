@@ -9,6 +9,7 @@ val jsonModule = module {
             encodeDefaults = true
             ignoreUnknownKeys = true
             isLenient = true
+            explicitNulls = true
         }
     }
 }
