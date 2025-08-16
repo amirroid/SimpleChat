@@ -16,14 +16,13 @@ import org.jetbrains.exposed.v1.jdbc.upsert
 import java.time.LocalDateTime
 
 class TokenServiceImpl(database: Database) : TokenService {
-    override suspend fun getUserToken(userId: String): Token = dbQuery {
+    override suspend fun getUserToken(userId: String): Token? = dbQuery {
         val now = LocalDateTime.now().toKotlinLocalDateTime()
         TokenTable
             .selectAll()
             .where { (TokenTable.userId eq userId) and (TokenTable.expiresAt greater now) }
             .singleOrNull()
             ?.toToken()
-            ?: notFoundError("Valid token for user $userId not found")
     }
 
     override suspend fun saveToken(

@@ -2,14 +2,11 @@ package ir.amirroid.simplechat.plugins
 
 import io.ktor.server.application.Application
 import io.ktor.server.auth.authenticate
-import io.ktor.server.auth.principal
 import io.ktor.server.routing.Route
-import io.ktor.server.routing.get
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
-import ir.amirroid.simplechat.auth.UserPrincipal
-import ir.amirroid.simplechat.extensions.respondDefault
 import ir.amirroid.simplechat.features.register.registerRoutes
+import ir.amirroid.simplechat.features.room.roomsRoute
 
 fun Application.configureRouting() {
     routing {
@@ -24,10 +21,8 @@ fun Application.configureRouting() {
 
 fun Route.handleRoutes() {
     registerRoutes()
+
     authenticate {
-        get {
-            val userPrincipal = call.principal<UserPrincipal>()!!
-            call.respondDefault(data = userPrincipal.user)
-        }
+        roomsRoute()
     }
 }

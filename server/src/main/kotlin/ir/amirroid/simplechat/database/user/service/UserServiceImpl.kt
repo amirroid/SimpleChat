@@ -8,11 +8,9 @@ import ir.amirroid.simplechat.database.user.mapper.toUser
 import ir.amirroid.simplechat.exceptions.internalServerError
 import ir.amirroid.simplechat.exceptions.notFoundError
 import ir.amirroid.simplechat.utils.dbQuery
-import org.jetbrains.exposed.v1.core.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.SchemaUtils
 import org.jetbrains.exposed.v1.jdbc.insert
-import org.jetbrains.exposed.v1.jdbc.select
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
@@ -55,7 +53,8 @@ class UserServiceImpl(
 
     override suspend fun existsByUserId(userId: String) = dbQuery {
         UserTable
-            .select(UserTable.userId eq userId)
+            .selectAll()
+            .where { UserTable.userId eq userId }
             .empty().not()
     }
 
