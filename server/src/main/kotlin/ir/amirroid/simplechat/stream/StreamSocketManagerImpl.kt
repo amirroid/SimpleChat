@@ -1,42 +1,90 @@
 package ir.amirroid.simplechat.stream
 
-import io.ktor.server.websocket.WebSocketServerSession
-import io.ktor.websocket.Frame
-import io.ktor.websocket.readText
-import io.ktor.websocket.send
+import com.corundumstudio.socketio.SocketIOClient
+import com.corundumstudio.socketio.SocketIOServer
+import io.ktor.http.HttpHeaders
+import ir.amirroid.simplechat.auth.manager.AuthenticationManager
+import ir.amirroid.simplechat.data.models.body.SendMessageBody
 import ir.amirroid.simplechat.data.models.user.User
+import ir.amirroid.simplechat.extensions.addEventListener
+import ir.amirroid.simplechat.socket.BaseSocketManager
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.json.Json
 import java.util.concurrent.ConcurrentHashMap
 
-class StreamSocketManagerImpl : StreamSocketManager {
-    private val clients = ConcurrentHashMap<String, WebSocketServerSession>()
+class StreamSocketManagerImpl(
+    private val socketManager: BaseSocketManager,
+    private val authenticationManager: AuthenticationManager,
+    private val json: Json
+) : StreamSocketManager {
+    private val clients = ConcurrentHashMap<String, SocketIOClient>()
+    private val users = ConcurrentHashMap<SocketIOClient, User>()
 
-    override fun registerClient(
-        userId: String,
-        session: WebSocketServerSession
+    private val server: SocketIOServer
+        get() = socketManager.server
+
+    private val scope: CoroutineScope
+        get() = socketManager.coroutineScop
+
+
+    private fun registerClient(
+        user: User,
+        client: SocketIOClient
     ) {
-        clients[userId] = session
+        clients[user.userId] = client
+        users[client] = user
     }
 
-    override fun unregisterClient(userId: String) {
+    private fun unregisterClient(userId: String) {
         clients.remove(userId)
-    }
-
-    override suspend fun handleFrame(
-        from: User,
-        frame: Frame
-    ) {
-        when (frame) {
-            is Frame.Close -> unregisterClient(from.userId)
-            is Frame.Text -> handleTextFrame(from, frame)
-
-            else -> Unit
+        users.entries.find { it.value.userId == userId }?.key?.also {
+            users.remove(it)
         }
     }
 
-    private suspend fun handleTextFrame(from: User, frame: Frame.Text) {
-        val text = frame.readText()
-        clients.filter { (userId, _) -> userId != from.userId }.forEach { (_, session) ->
-            session.send("(${from.username}) $text")
+
+    override fun startListening() {
+        addJoinEventListener()
+        addDisconnectEventListener()
+        addSendMessageEventListener()
+    }
+
+    private fun addJoinEventListener() {
+        server.addEventListener("join", String::class.java) { client, _, _ ->
+            val token = client.handshakeData.httpHeaders[HttpHeaders.Authorization]
+            val principal = runBlocking {
+                authenticationManager.getUserPrincipleFromToken(
+                    token,
+                    authenticationManager.generateCredentialFromToken(token)
+                )
+            }
+            if (principal == null) {
+                client.disconnect()
+            } else {
+                registerClient(principal.user, client)
+            }
+        }
+    }
+
+    private fun addDisconnectEventListener() {
+        server.addDisconnectListener { client ->
+            val userId = getUserFromClient(client)?.userId ?: return@addDisconnectListener
+            unregisterClient(userId)
+        }
+    }
+
+    private fun getUserFromClient(client: SocketIOClient): User? {
+        return users.getOrDefault(client, null)
+    }
+
+    fun addSendMessageEventListener() {
+        server.addEventListener<SendMessageBody>(
+            eventName = "send_message",
+            json = json
+        ) { client, data, ackSender ->
+            val user = getUserFromClient(client)
+            client.sendEvent("send_message", "${user?.username} ${data.content}")
         }
     }
 }

@@ -26,7 +26,6 @@ dependencies {
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.rate.limiting)
     implementation(libs.ktor.cors)
-    implementation(libs.ktor.websockets)
 
     // Exposed
     implementation(libs.exposed.core)
@@ -46,4 +45,7 @@ dependencies {
 
     // Argon2
     implementation(libs.argon2.jvm)
+
+    // Socket IO
+    implementation(libs.netty.socketio)
 }

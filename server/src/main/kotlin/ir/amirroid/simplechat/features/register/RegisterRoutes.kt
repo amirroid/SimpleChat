@@ -1,7 +1,7 @@
 package ir.amirroid.simplechat.features.register
 
 import io.ktor.server.routing.Route
-import ir.amirroid.simplechat.auth.JwtService
+import ir.amirroid.simplechat.auth.jwt.JwtService
 import ir.amirroid.simplechat.database.token.service.TokenService
 import ir.amirroid.simplechat.database.user.service.UserService
 import org.koin.ktor.ext.inject

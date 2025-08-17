@@ -15,6 +15,7 @@ import org.slf4j.Logger
 fun Application.configureDependencyInjection() {
     val applicationModule = module {
         single<Logger> { log }
+        single<Application> { this@configureDependencyInjection }
         single<ApplicationEnvironment> { environment }
     }
     install(Koin) {

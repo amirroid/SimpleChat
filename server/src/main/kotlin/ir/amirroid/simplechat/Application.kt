@@ -8,8 +8,8 @@ import ir.amirroid.simplechat.plugins.configureCors
 import ir.amirroid.simplechat.plugins.configureDependencyInjection
 import ir.amirroid.simplechat.plugins.configureRateLimit
 import ir.amirroid.simplechat.plugins.configureRouting
+import ir.amirroid.simplechat.plugins.configureSocketIO
 import ir.amirroid.simplechat.plugins.configureStatusPages
-import ir.amirroid.simplechat.plugins.configureWebSockets
 
 fun main(args: Array<String>) = EngineMain.main(args)
 
@@ -20,6 +20,6 @@ fun Application.module() {
     configureContentNegotiation()
     configureRateLimit()
     configureAuthentication()
-    configureWebSockets()
+    configureSocketIO()
     configureRouting()
 }

@@ -1,4 +1,4 @@
-package ir.amirroid.simplechat.auth
+package ir.amirroid.simplechat.auth.jwt
 
 import com.auth0.jwt.JWTVerifier
 import ir.amirroid.simplechat.data.models.token.Token

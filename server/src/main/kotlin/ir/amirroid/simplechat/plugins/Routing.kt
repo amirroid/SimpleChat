@@ -8,7 +8,6 @@ import io.ktor.server.routing.routing
 import ir.amirroid.simplechat.features.messages.messagesRoute
 import ir.amirroid.simplechat.features.register.registerRoutes
 import ir.amirroid.simplechat.features.room.roomsRoute
-import ir.amirroid.simplechat.features.stream.streamSocket
 
 fun Application.configureRouting() {
     routing {
@@ -29,6 +28,5 @@ fun Route.handleRoutes() {
             roomsRoute()
             messagesRoute()
         }
-        streamSocket()
     }
 }
