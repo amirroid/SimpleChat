@@ -6,9 +6,11 @@ import io.ktor.server.application.ApplicationEnvironment
 import io.ktor.server.config.getAs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.serialization.json.Json
 
 class BaseSocketManagerImpl(
-    private val environment: ApplicationEnvironment
+    private val environment: ApplicationEnvironment,
+    override val json: Json,
 ) : BaseSocketManager {
     override val server by lazy { SocketIOServer(createSocketConfiguration()) }
     private val job = SupervisorJob()
