@@ -17,4 +17,4 @@ jwt:
   issuer: "http://amirroid.ir/"
   audience: "simplechat_users"
   realm: "simplechat_auth"
-  expiration: 2629746 # seconds (1 month)
+  expiration: 2629746000 # 1 month

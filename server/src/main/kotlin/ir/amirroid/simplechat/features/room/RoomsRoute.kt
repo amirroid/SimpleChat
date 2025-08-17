@@ -11,7 +11,7 @@ import org.koin.ktor.ext.inject
 fun Route.roomsRoute() {
     val roomsService by inject<RoomsService>()
 
-    get("/rooms") {
+    get("/") {
         val user = call.principal<UserPrincipal>()!!.user
 
         val response = roomsService.getUserRooms(user.userId)

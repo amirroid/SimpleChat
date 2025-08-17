@@ -2,6 +2,8 @@ package ir.amirroid.simplechat.di
 
 import io.ktor.server.application.ApplicationEnvironment
 import io.ktor.server.config.getAs
+import ir.amirroid.simplechat.database.message.services.MessagesService
+import ir.amirroid.simplechat.database.message.services.MessagesServiceImpl
 import ir.amirroid.simplechat.database.room.service.RoomsService
 import ir.amirroid.simplechat.database.room.service.RoomsServiceImpl
 import ir.amirroid.simplechat.database.token.service.TokenService
@@ -20,6 +22,7 @@ val databaseModule = module {
     singleOf(::UserServiceImpl).bind<UserService>()
     singleOf(::TokenServiceImpl).bind<TokenService>()
     singleOf(::RoomsServiceImpl).bind<RoomsService>()
+    singleOf(::MessagesServiceImpl).bind<MessagesService>()
 }
 
 

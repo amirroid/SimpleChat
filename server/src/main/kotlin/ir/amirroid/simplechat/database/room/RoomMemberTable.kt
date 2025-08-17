@@ -16,5 +16,9 @@ object RoomMemberTable : Table("room_members") {
     val role = enumeration("role", MemberRole::class).default(MemberRole.MEMBER)
     val joinedAt = datetime("joined_at").defaultExpression(CurrentDateTime)
 
+    init {
+        index(true, roomId, userId)
+    }
+
     override val primaryKey = PrimaryKey(roomId, userId)
 }

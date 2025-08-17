@@ -5,6 +5,7 @@ import io.ktor.server.auth.authenticate
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
+import ir.amirroid.simplechat.features.messages.messagesRoute
 import ir.amirroid.simplechat.features.register.registerRoutes
 import ir.amirroid.simplechat.features.room.roomsRoute
 
@@ -23,6 +24,9 @@ fun Route.handleRoutes() {
     registerRoutes()
 
     authenticate {
-        roomsRoute()
+        route("/rooms") {
+            roomsRoute()
+            messagesRoute()
+        }
     }
 }
