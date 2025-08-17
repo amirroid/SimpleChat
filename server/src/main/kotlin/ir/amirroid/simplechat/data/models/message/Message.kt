@@ -11,5 +11,6 @@ data class Message(
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime?,
     val sender: RoomMember,
-    val roomId: Long
+    val roomId: Long,
+    val statuses: List<MessageStatus>
 )

@@ -1,0 +1,21 @@
+package ir.amirroid.simplechat.database.message.mapper
+
+import ir.amirroid.simplechat.data.models.message.MessageStatus
+import ir.amirroid.simplechat.data.models.user.User
+import ir.amirroid.simplechat.database.message.MessageStatusTable
+import ir.amirroid.simplechat.database.user.UserTable
+import ir.amirroid.simplechat.database.user.mapper.toUser
+import org.jetbrains.exposed.v1.core.Alias
+import org.jetbrains.exposed.v1.core.ResultRow
+
+fun ResultRow.toMessageStatus(
+    statusAlias: Alias<MessageStatusTable>,
+    statusUserAlias: Alias<UserTable>
+): MessageStatus? {
+    val messageId = getOrNull(statusAlias[MessageStatusTable.messageId])?.value ?: return null
+    return MessageStatus(
+        messageId = messageId,
+        user = toUser(statusUserAlias),
+        status = this[statusAlias[MessageStatusTable.status]]
+    )
+}
