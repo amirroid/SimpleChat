@@ -5,6 +5,7 @@ import ir.amirroid.simplechat.auth.manager.AuthenticationManager
 import ir.amirroid.simplechat.data.models.user.User
 import ir.amirroid.simplechat.database.message.services.MessagesService
 import ir.amirroid.simplechat.database.message_status.service.MessageStatusService
+import ir.amirroid.simplechat.database.room_member.service.RoomMemberService
 import ir.amirroid.simplechat.socket.BaseSocketManager
 import ir.amirroid.simplechat.socket.addEventListener
 import ir.amirroid.simplechat.stream.events.JoinSocketEventListener
@@ -18,6 +19,7 @@ class StreamSocketManagerImpl(
     private val authenticationManager: AuthenticationManager,
     private val messagesService: MessagesService,
     private val messageStatusService: MessageStatusService,
+    private val roomMemberService: RoomMemberService,
     private val json: Json
 ) : StreamSocketManager {
     val clients = ConcurrentHashMap<String, SocketIOClient>()
@@ -43,12 +45,19 @@ class StreamSocketManagerImpl(
     override fun startListening() {
         addDisconnectEventListener()
         socketManager.addEventListener(JoinSocketEventListener(this, authenticationManager))
-        socketManager.addEventListener(SeenSocketEventListener(this, messageStatusService))
+        socketManager.addEventListener(
+            SeenSocketEventListener(
+                this,
+                messageStatusService,
+                roomMemberService
+            )
+        )
         socketManager.addEventListener(
             SendMessageSocketEventListener(
                 this,
                 messagesService,
                 messageStatusService,
+                roomMemberService,
                 json
             )
         )

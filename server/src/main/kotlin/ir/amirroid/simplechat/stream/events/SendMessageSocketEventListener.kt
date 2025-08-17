@@ -9,11 +9,11 @@ import ir.amirroid.simplechat.database.message.services.MessagesService
 import ir.amirroid.simplechat.database.message_status.MessageStatuses
 import ir.amirroid.simplechat.database.message_status.service.MessageStatusService
 import ir.amirroid.simplechat.database.message_status.service.UserWithStatus
+import ir.amirroid.simplechat.database.room_member.service.RoomMemberService
 import ir.amirroid.simplechat.extensions.without
 import ir.amirroid.simplechat.socket.events.SocketEventListener
 import ir.amirroid.simplechat.stream.StreamSocketManagerImpl
 import ir.amirroid.simplechat.utils.SocketEvents
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -22,6 +22,7 @@ class SendMessageSocketEventListener(
     private val streamSocketManager: StreamSocketManagerImpl,
     private val messagesService: MessagesService,
     private val messageStatusService: MessageStatusService,
+    private val roomMemberService: RoomMemberService,
     private val json: Json
 ) :
     SocketEventListener<SendMessageBody>(SocketEvents.SEND_MESSAGE) {
@@ -35,19 +36,21 @@ class SendMessageSocketEventListener(
     ) {
         val user = streamSocketManager.getUserFromClient(client) ?: return
 
-        sendMessage(user, data, clients.values.toList())
+        sendMessage(user, data)
     }
 
-    private fun sendMessage(user: User, body: SendMessageBody, clients: List<SocketIOClient>) =
+    private fun sendMessage(user: User, body: SendMessageBody) =
         scope.launch(Dispatchers.IO) {
+            val activeRoomClients = roomMemberService.getAllRoomMemberIds(body.roomId)
+                .mapNotNull { clients[it] }
             val message = saveMessage(user, body)
             val messageId = message.id
             val myClient = this@SendMessageSocketEventListener.clients[user.userId]!!
-            val usersWithStatus = buildUsersStatus(clients.without(myClient))
+            val usersWithStatus = buildUsersStatus(activeRoomClients.without(myClient))
             upsertStatuses(message.id, usersWithStatus)
             val newStatuses = messageStatusService.getMessageStatuses(messageId)
             val messageWithStatuses = message.copy(statuses = newStatuses)
-            broadcast(clients, messageWithStatuses, myClient)
+            broadcast(activeRoomClients, messageWithStatuses, myClient)
         }
 
     private fun buildUsersStatus(clients: List<SocketIOClient>): List<UserWithStatus> =
