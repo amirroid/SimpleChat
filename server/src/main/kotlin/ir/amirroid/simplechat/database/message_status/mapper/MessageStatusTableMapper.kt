@@ -1,8 +1,7 @@
-package ir.amirroid.simplechat.database.message.mapper
+package ir.amirroid.simplechat.database.message_status.mapper
 
 import ir.amirroid.simplechat.data.models.message.MessageStatus
-import ir.amirroid.simplechat.data.models.user.User
-import ir.amirroid.simplechat.database.message.MessageStatusTable
+import ir.amirroid.simplechat.database.message_status.MessageStatusTable
 import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.database.user.mapper.toUser
 import org.jetbrains.exposed.v1.core.Alias
@@ -17,5 +16,13 @@ fun ResultRow.toMessageStatus(
         messageId = messageId,
         user = toUser(statusUserAlias),
         status = this[statusAlias[MessageStatusTable.status]]
+    )
+}
+
+fun ResultRow.toMessageStatus(): MessageStatus {
+    return MessageStatus(
+        messageId = this[MessageStatusTable.messageId].value,
+        user = toUser(),
+        status = this[MessageStatusTable.status]
     )
 }

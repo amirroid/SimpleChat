@@ -1,9 +1,9 @@
 package ir.amirroid.simplechat.database.room.service
 
 import ir.amirroid.simplechat.data.models.room.Room
-import ir.amirroid.simplechat.database.room.RoomMemberTable
+import ir.amirroid.simplechat.database.room_member.RoomMemberTable
 import ir.amirroid.simplechat.database.room.RoomTable
-import ir.amirroid.simplechat.database.room.mapper.toRoomMember
+import ir.amirroid.simplechat.database.room_member.mapper.toRoomMember
 import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.utils.dbQuery
 import org.jetbrains.exposed.v1.core.Alias

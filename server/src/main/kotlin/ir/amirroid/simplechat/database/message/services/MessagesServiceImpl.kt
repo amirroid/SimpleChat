@@ -1,11 +1,13 @@
 package ir.amirroid.simplechat.database.message.services
 
-import ir.amirroid.simplechat.database.message.MessageStatusTable
+import ir.amirroid.simplechat.database.message_status.MessageStatusTable
 import ir.amirroid.simplechat.database.message.MessageTable
 import ir.amirroid.simplechat.database.message.mapper.toMessage
-import ir.amirroid.simplechat.database.message.mapper.toMessageStatus
-import ir.amirroid.simplechat.database.room.RoomMemberTable
+import ir.amirroid.simplechat.database.message_status.mapper.toMessageStatus
+import ir.amirroid.simplechat.database.room_member.RoomMemberTable
+import ir.amirroid.simplechat.database.room_member.service.RoomMemberService
 import ir.amirroid.simplechat.database.user.UserTable
+import ir.amirroid.simplechat.exceptions.internalServerError
 import ir.amirroid.simplechat.utils.dbQuery
 import org.jetbrains.exposed.v1.core.Alias
 import org.jetbrains.exposed.v1.core.JoinType
@@ -15,10 +17,12 @@ import org.jetbrains.exposed.v1.core.alias
 import org.jetbrains.exposed.v1.core.and
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.SchemaUtils
+import org.jetbrains.exposed.v1.jdbc.insert
 import org.jetbrains.exposed.v1.jdbc.selectAll
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
-class MessagesServiceImpl(database: Database) : MessagesService {
+class MessagesServiceImpl(database: Database, private val roomMemberService: RoomMemberService) :
+    MessagesService {
     override suspend fun getAllMessages(
         roomId: Long,
         myUserId: String
@@ -43,6 +47,22 @@ class MessagesServiceImpl(database: Database) : MessagesService {
                     groupedRows.mapNotNull { it.toMessageStatus(statusAlias, statusUserAlias) }
                 firstRow.toMessage(senderAlias, senderUserAlias, myUserId, statuses)
             }
+    }
+
+    override suspend fun addMessage(
+        content: String,
+        roomId: Long,
+        userId: String
+    ) = dbQuery {
+        val result = MessageTable.insert {
+            it[MessageTable.content] = content
+            it[MessageTable.roomId] = roomId
+            it[MessageTable.senderUserId] = userId
+        }.resultedValues?.firstOrNull() ?: internalServerError("Failed to save message")
+
+        val sender = roomMemberService.getRoomMember(roomId, userId)
+
+        result.toMessage(sender, emptyList())
     }
 
 

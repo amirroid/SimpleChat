@@ -1,5 +1,6 @@
 package ir.amirroid.simplechat.extensions
 
+import com.corundumstudio.socketio.SocketIOClient
 import com.corundumstudio.socketio.SocketIOServer
 import com.corundumstudio.socketio.listener.DataListener
 import kotlinx.serialization.json.Json
@@ -18,4 +19,12 @@ inline fun <reified T> SocketIOServer.addEventListener(
             println("Failed to parse message: ${it.message}")
         }
     }
+}
+
+inline fun <reified T> SocketIOClient.sendEvent(
+    eventName: String,
+    json: Json,
+    data: T
+) {
+    sendEvent(eventName, json.encodeToString(data))
 }

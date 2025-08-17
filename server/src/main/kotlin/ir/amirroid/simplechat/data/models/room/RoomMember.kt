@@ -1,7 +1,7 @@
 package ir.amirroid.simplechat.data.models.room
 
 import ir.amirroid.simplechat.data.models.user.User
-import ir.amirroid.simplechat.database.room.MemberRole
+import ir.amirroid.simplechat.database.room_member.MemberRole
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

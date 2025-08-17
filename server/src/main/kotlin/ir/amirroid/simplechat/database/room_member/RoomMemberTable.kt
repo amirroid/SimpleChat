@@ -1,5 +1,6 @@
-package ir.amirroid.simplechat.database.room
+package ir.amirroid.simplechat.database.room_member
 
+import ir.amirroid.simplechat.database.room.RoomTable
 import ir.amirroid.simplechat.database.user.UserTable
 import org.jetbrains.exposed.v1.core.ReferenceOption
 import org.jetbrains.exposed.v1.core.Table

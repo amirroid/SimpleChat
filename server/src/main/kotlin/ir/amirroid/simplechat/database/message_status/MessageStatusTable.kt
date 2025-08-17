@@ -1,5 +1,6 @@
-package ir.amirroid.simplechat.database.message
+package ir.amirroid.simplechat.database.message_status
 
+import ir.amirroid.simplechat.database.message.MessageTable
 import ir.amirroid.simplechat.database.user.UserTable
 import org.jetbrains.exposed.v1.core.ReferenceOption
 import org.jetbrains.exposed.v1.core.Table

@@ -1,7 +1,7 @@
 package ir.amirroid.simplechat.data.models.message
 
 import ir.amirroid.simplechat.data.models.user.User
-import ir.amirroid.simplechat.database.message.MessageStatuses
+import ir.amirroid.simplechat.database.message_status.MessageStatuses
 import kotlinx.serialization.Serializable
 
 @Serializable
