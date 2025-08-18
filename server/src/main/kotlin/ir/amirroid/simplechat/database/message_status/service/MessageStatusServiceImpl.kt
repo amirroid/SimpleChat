@@ -1,10 +1,9 @@
 package ir.amirroid.simplechat.database.message_status.service
 
-import ir.amirroid.simplechat.data.models.message.MessageStatus
 import ir.amirroid.simplechat.database.message_status.MessageStatusTable
-import ir.amirroid.simplechat.database.message_status.MessageStatuses
 import ir.amirroid.simplechat.database.message_status.mapper.toMessageStatus
 import ir.amirroid.simplechat.database.user.UserTable
+import ir.amirroid.simplechat.models.message.MessageDeliveryStatus
 import ir.amirroid.simplechat.utils.dbQuery
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.jetbrains.exposed.v1.core.innerJoin
@@ -17,7 +16,7 @@ class MessageStatusServiceImpl : MessageStatusService {
     override suspend fun upsertStatus(
         messageId: Long,
         userId: String,
-        status: MessageStatuses
+        status: MessageDeliveryStatus
     ) {
         dbQuery {
             MessageStatusTable.upsert {

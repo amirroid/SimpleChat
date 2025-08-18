@@ -2,12 +2,12 @@ package ir.amirroid.simplechat.stream.events
 
 import com.corundumstudio.socketio.AckRequest
 import com.corundumstudio.socketio.SocketIOClient
-import ir.amirroid.simplechat.data.models.body.SeenMessageBody
-import ir.amirroid.simplechat.data.models.response.SeenMessageResponse
-import ir.amirroid.simplechat.database.message_status.MessageStatuses
+import ir.amirroid.simplechat.models.body.SeenMessageBody
+import ir.amirroid.simplechat.models.response.SeenMessageResponse
 import ir.amirroid.simplechat.database.message_status.service.MessageStatusService
 import ir.amirroid.simplechat.database.room_member.service.RoomMemberService
 import ir.amirroid.simplechat.extensions.without
+import ir.amirroid.simplechat.models.message.MessageDeliveryStatus
 import ir.amirroid.simplechat.socket.events.SocketEventListener
 import ir.amirroid.simplechat.stream.StreamSocketManagerImpl
 import ir.amirroid.simplechat.utils.SocketEvents
@@ -38,7 +38,7 @@ class SeenSocketEventListener(
     }
 
     private suspend fun markMessageAsSeen(messageId: Long, userId: String) =
-        messageStatusService.upsertStatus(messageId, userId, MessageStatuses.SEEN)
+        messageStatusService.upsertStatus(messageId, userId, MessageDeliveryStatus.SEEN)
 
     private suspend fun broadcastSeenStatus(data: SeenMessageResponse, excludingUserId: String) {
         val activeRoomClients = roomMemberService.getAllRoomMemberIdsFromMessage(data.messageId)

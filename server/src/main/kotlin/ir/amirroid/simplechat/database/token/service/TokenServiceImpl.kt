@@ -1,10 +1,9 @@
 package ir.amirroid.simplechat.database.token.service
 
-import ir.amirroid.simplechat.data.models.token.Token
+import ir.amirroid.simplechat.models.token.Token
 import ir.amirroid.simplechat.database.token.TokenTable
 import ir.amirroid.simplechat.database.token.mapper.toToken
 import ir.amirroid.simplechat.exceptions.internalServerError
-import ir.amirroid.simplechat.exceptions.notFoundError
 import ir.amirroid.simplechat.utils.dbQuery
 import kotlinx.datetime.toKotlinLocalDateTime
 import org.jetbrains.exposed.v1.core.and

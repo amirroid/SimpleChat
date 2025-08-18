@@ -2,7 +2,7 @@ package ir.amirroid.simplechat.stream
 
 import com.corundumstudio.socketio.SocketIOClient
 import ir.amirroid.simplechat.auth.manager.AuthenticationManager
-import ir.amirroid.simplechat.data.models.user.User
+import ir.amirroid.simplechat.models.user.User
 import ir.amirroid.simplechat.database.message.services.MessagesService
 import ir.amirroid.simplechat.database.message_status.service.MessageStatusService
 import ir.amirroid.simplechat.database.room_member.service.RoomMemberService

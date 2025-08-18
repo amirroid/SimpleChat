@@ -1,8 +1,8 @@
 package ir.amirroid.simplechat.database.message.mapper
 
-import ir.amirroid.simplechat.data.models.message.Message
-import ir.amirroid.simplechat.data.models.message.MessageStatus
-import ir.amirroid.simplechat.data.models.room.RoomMember
+import ir.amirroid.simplechat.models.message.Message
+import ir.amirroid.simplechat.models.message.MessageStatus
+import ir.amirroid.simplechat.models.room.RoomMember
 import ir.amirroid.simplechat.database.message.MessageTable
 import ir.amirroid.simplechat.database.room_member.RoomMemberTable
 import ir.amirroid.simplechat.database.room_member.mapper.toRoomMember

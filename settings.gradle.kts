@@ -11,6 +11,7 @@ pluginManagement {
             }
         }
         mavenCentral()
+        maven("https://en-mirror.ir")
         gradlePluginPortal()
     }
 }
@@ -24,6 +25,7 @@ dependencyResolutionManagement {
                 includeGroupAndSubgroups("com.google")
             }
         }
+        maven("https://en-mirror.ir")
         mavenCentral()
     }
 }

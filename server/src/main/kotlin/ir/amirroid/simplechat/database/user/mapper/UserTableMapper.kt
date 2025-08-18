@@ -1,6 +1,6 @@
 package ir.amirroid.simplechat.database.user.mapper
 
-import ir.amirroid.simplechat.data.models.user.User
+import ir.amirroid.simplechat.models.user.User
 import ir.amirroid.simplechat.database.user.UserTable
 import org.jetbrains.exposed.v1.core.Alias
 import org.jetbrains.exposed.v1.core.ResultRow

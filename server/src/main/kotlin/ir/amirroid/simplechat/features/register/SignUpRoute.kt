@@ -4,7 +4,7 @@ import io.ktor.server.request.receive
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import ir.amirroid.simplechat.auth.jwt.JwtService
-import ir.amirroid.simplechat.data.models.user.RegisterUserBody
+import ir.amirroid.simplechat.models.user.RegisterUserBody
 import ir.amirroid.simplechat.database.token.service.TokenService
 import ir.amirroid.simplechat.database.user.service.UserService
 import ir.amirroid.simplechat.exceptions.conflictError

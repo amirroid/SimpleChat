@@ -5,7 +5,7 @@ import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import io.ktor.server.application.ApplicationEnvironment
 import io.ktor.server.config.getAs
-import ir.amirroid.simplechat.data.models.token.Token
+import ir.amirroid.simplechat.models.token.Token
 import ir.amirroid.simplechat.extensions.toKotlinLocalDateTime
 import java.util.Date
 

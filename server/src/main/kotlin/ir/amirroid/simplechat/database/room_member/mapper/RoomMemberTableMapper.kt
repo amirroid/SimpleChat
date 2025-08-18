@@ -1,6 +1,6 @@
 package ir.amirroid.simplechat.database.room_member.mapper
 
-import ir.amirroid.simplechat.data.models.room.RoomMember
+import ir.amirroid.simplechat.models.room.RoomMember
 import ir.amirroid.simplechat.database.room_member.RoomMemberTable
 import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.database.user.mapper.toUser

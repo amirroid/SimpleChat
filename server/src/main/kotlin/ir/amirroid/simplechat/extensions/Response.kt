@@ -3,7 +3,7 @@ package ir.amirroid.simplechat.extensions
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respond
-import ir.amirroid.simplechat.data.models.DefaultResponse
+import ir.amirroid.simplechat.models.DefaultResponse
 
 suspend inline fun <reified T : Any> ApplicationCall.respondDefault(
     status: HttpStatusCode = HttpStatusCode.OK,

@@ -56,6 +56,7 @@ kotlin {
             implementation(libs.koin.core)
 
             implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlinx.datetime)
         }
     }
 }

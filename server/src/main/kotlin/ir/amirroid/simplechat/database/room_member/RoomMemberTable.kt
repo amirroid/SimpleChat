@@ -2,14 +2,11 @@ package ir.amirroid.simplechat.database.room_member
 
 import ir.amirroid.simplechat.database.room.RoomTable
 import ir.amirroid.simplechat.database.user.UserTable
+import ir.amirroid.simplechat.models.room.MemberRole
 import org.jetbrains.exposed.v1.core.ReferenceOption
 import org.jetbrains.exposed.v1.core.Table
 import org.jetbrains.exposed.v1.datetime.CurrentDateTime
 import org.jetbrains.exposed.v1.datetime.datetime
-
-enum class MemberRole {
-    MEMBER, OWNER
-}
 
 object RoomMemberTable : Table("room_members") {
     val roomId = reference("room_id", RoomTable.id, ReferenceOption.CASCADE)

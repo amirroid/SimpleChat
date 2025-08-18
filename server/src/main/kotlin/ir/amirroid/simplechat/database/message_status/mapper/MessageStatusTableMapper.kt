@@ -1,6 +1,6 @@
 package ir.amirroid.simplechat.database.message_status.mapper
 
-import ir.amirroid.simplechat.data.models.message.MessageStatus
+import ir.amirroid.simplechat.models.message.MessageStatus
 import ir.amirroid.simplechat.database.message_status.MessageStatusTable
 import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.database.user.mapper.toUser

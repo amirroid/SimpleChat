@@ -2,15 +2,15 @@ package ir.amirroid.simplechat.stream.events
 
 import com.corundumstudio.socketio.AckRequest
 import com.corundumstudio.socketio.SocketIOClient
-import ir.amirroid.simplechat.data.models.body.SendMessageBody
-import ir.amirroid.simplechat.data.models.message.Message
-import ir.amirroid.simplechat.data.models.user.User
 import ir.amirroid.simplechat.database.message.services.MessagesService
-import ir.amirroid.simplechat.database.message_status.MessageStatuses
 import ir.amirroid.simplechat.database.message_status.service.MessageStatusService
 import ir.amirroid.simplechat.database.message_status.service.UserWithStatus
 import ir.amirroid.simplechat.database.room_member.service.RoomMemberService
 import ir.amirroid.simplechat.extensions.without
+import ir.amirroid.simplechat.models.body.SendMessageBody
+import ir.amirroid.simplechat.models.message.Message
+import ir.amirroid.simplechat.models.message.MessageDeliveryStatus
+import ir.amirroid.simplechat.models.user.User
 import ir.amirroid.simplechat.socket.events.SocketEventListener
 import ir.amirroid.simplechat.stream.StreamSocketManagerImpl
 import ir.amirroid.simplechat.utils.SocketEvents
@@ -58,7 +58,7 @@ class SendMessageSocketEventListener(
             streamSocketManager.users[client]?.let {
                 UserWithStatus(
                     it.userId,
-                    MessageStatuses.DELIVERED
+                    MessageDeliveryStatus.DELIVERED
                 )
             }
         }

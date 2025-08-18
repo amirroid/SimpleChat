@@ -1,6 +1,6 @@
 package ir.amirroid.simplechat.database.room.service
 
-import ir.amirroid.simplechat.data.models.room.Room
+import ir.amirroid.simplechat.models.room.Room
 import ir.amirroid.simplechat.database.room_member.RoomMemberTable
 import ir.amirroid.simplechat.database.room.RoomTable
 import ir.amirroid.simplechat.database.room_member.mapper.toRoomMember
@@ -55,6 +55,7 @@ class RoomsServiceImpl(database: Database) : RoomsService {
             name = name,
             isPrivate = isPrivate,
             createdAt = roomRow[RoomTable.createdAt],
+            id = roomRow[RoomTable.id].value,
             members = if (isPrivate) members else members.filter { it.isMe }
         )
     }

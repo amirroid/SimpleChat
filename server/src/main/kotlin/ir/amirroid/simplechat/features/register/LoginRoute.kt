@@ -4,9 +4,10 @@ import io.ktor.server.request.receive
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.post
 import ir.amirroid.simplechat.auth.jwt.JwtService
-import ir.amirroid.simplechat.data.models.user.RegisterUserBody
+import ir.amirroid.simplechat.models.user.RegisterUserBody
 import ir.amirroid.simplechat.database.token.service.TokenService
 import ir.amirroid.simplechat.database.user.service.UserService
+import ir.amirroid.simplechat.exceptions.badRequestError
 import ir.amirroid.simplechat.exceptions.unauthorizedError
 import ir.amirroid.simplechat.extensions.respondDefault
 
@@ -21,7 +22,7 @@ fun Route.loginRoute(
 
         val isValid = userService.verifyPassword(userId, body.password)
         if (!isValid) {
-            unauthorizedError("Invalid credentials")
+            badRequestError("Invalid credentials")
         }
 
         val token = tokenService.getUserToken(userId)

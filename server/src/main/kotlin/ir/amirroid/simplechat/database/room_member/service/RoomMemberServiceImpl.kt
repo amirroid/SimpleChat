@@ -1,6 +1,5 @@
 package ir.amirroid.simplechat.database.room_member.service
 
-import ir.amirroid.simplechat.data.models.room.RoomMember
 import ir.amirroid.simplechat.database.message.MessageTable
 import ir.amirroid.simplechat.database.room_member.RoomMemberTable
 import ir.amirroid.simplechat.database.room_member.mapper.toRoomMember
@@ -8,7 +7,6 @@ import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.exceptions.notFoundError
 import ir.amirroid.simplechat.utils.dbQuery
 import org.jetbrains.exposed.v1.core.and
-import org.jetbrains.exposed.v1.core.statements.UpsertSqlExpressionBuilder.eq
 import org.jetbrains.exposed.v1.jdbc.select
 import org.jetbrains.exposed.v1.jdbc.selectAll
 

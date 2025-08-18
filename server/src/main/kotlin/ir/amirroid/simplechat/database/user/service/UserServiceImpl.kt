@@ -1,8 +1,8 @@
 package ir.amirroid.simplechat.database.user.service
 
 import de.mkammerer.argon2.Argon2Factory
-import ir.amirroid.simplechat.data.models.user.RegisterUserBody
-import ir.amirroid.simplechat.data.models.user.User
+import ir.amirroid.simplechat.models.user.RegisterUserBody
+import ir.amirroid.simplechat.models.user.User
 import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.database.user.mapper.toUser
 import ir.amirroid.simplechat.exceptions.internalServerError
