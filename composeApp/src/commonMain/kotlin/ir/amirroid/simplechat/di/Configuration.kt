@@ -6,6 +6,14 @@ import org.koin.dsl.KoinAppDeclaration
 fun configureDi(appDeclaration: KoinAppDeclaration? = null) {
     startKoin {
         appDeclaration?.invoke(this)
-        modules(networkModule, jsonModule, viewModelModule, storeModule, repositoryModule)
+        modules(
+            networkModule,
+            jsonModule,
+            viewModelModule,
+            storeModule,
+            repositoryModule,
+            databaseModule,
+            daoModules
+        )
     }
 }
