@@ -66,6 +66,9 @@ kotlin {
 
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
+
+
+            implementation(libs.socket.io)
         }
 
         iosMain.dependencies {

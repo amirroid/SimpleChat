@@ -7,6 +7,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import ir.amirroid.simplechat.features.chat.ChatScreen
 import ir.amirroid.simplechat.features.home.HomeScreen
 import ir.amirroid.simplechat.features.register.RegisterScreen
 import ir.amirroid.simplechat.ui.theme.SimpleChatTheme
@@ -31,7 +32,10 @@ fun App(viewModel: AppViewModel = koinViewModel()) {
                         RegisterScreen()
                     }
                     composable<AppPages.Home> {
-                        HomeScreen()
+                        HomeScreen(navController)
+                    }
+                    composable<AppPages.Messages> {
+                        ChatScreen()
                     }
                 }
             }

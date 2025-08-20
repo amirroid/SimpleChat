@@ -7,6 +7,7 @@ import ir.amirroid.simplechat.database.user.UserTable
 import ir.amirroid.simplechat.exceptions.notFoundError
 import ir.amirroid.simplechat.utils.dbQuery
 import org.jetbrains.exposed.v1.core.and
+import org.jetbrains.exposed.v1.jdbc.batchInsert
 import org.jetbrains.exposed.v1.jdbc.select
 import org.jetbrains.exposed.v1.jdbc.selectAll
 
@@ -37,5 +38,16 @@ class RoomMemberServiceImpl : RoomMemberService {
             .firstOrNull()?.value ?: return@dbQuery emptyList()
 
         getAllRoomMemberIds(roomId)
+    }
+
+
+    override suspend fun addMembers(roomId: Long, members: List<UserIdWithRole>) {
+        dbQuery {
+            RoomMemberTable.batchInsert(members) { member ->
+                this[RoomMemberTable.roomId] = roomId
+                this[RoomMemberTable.userId] = member.userId
+                this[RoomMemberTable.role] = member.role
+            }
+        }
     }
 }

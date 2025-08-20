@@ -13,7 +13,8 @@ fun configureDi(appDeclaration: KoinAppDeclaration? = null) {
             storeModule,
             repositoryModule,
             databaseModule,
-            daoModules
+            daoModules,
+            serviceModule
         )
     }
 }

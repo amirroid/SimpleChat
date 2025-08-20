@@ -13,13 +13,14 @@ import ir.amirroid.simplechat.stream.StreamSocketManagerImpl
 import ir.amirroid.simplechat.utils.SocketEvents
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 
 class SeenSocketEventListener(
     private val streamSocketManager: StreamSocketManagerImpl,
     private val messageStatusService: MessageStatusService,
-    private val roomMemberService: RoomMemberService
-) :
-    SocketEventListener<SeenMessageBody>(SocketEvents.SEEN) {
+    private val roomMemberService: RoomMemberService,
+    private val json: Json
+) : SocketEventListener<SeenMessageBody>(SocketEvents.SEEN) {
     override fun handleEventListener(
         client: SocketIOClient,
         data: SeenMessageBody,
@@ -45,7 +46,7 @@ class SeenSocketEventListener(
             .mapNotNull { streamSocketManager.clients[it] }
         activeRoomClients.without(streamSocketManager.clients[excludingUserId]!!)
             .forEach { client ->
-                client.sendEvent(SocketEvents.SEEN, data)
+                client.sendEvent(SocketEvents.SEEN, json.encodeToString(data))
             }
     }
 }

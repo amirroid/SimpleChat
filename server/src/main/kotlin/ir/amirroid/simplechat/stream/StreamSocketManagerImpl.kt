@@ -5,9 +5,12 @@ import ir.amirroid.simplechat.auth.manager.AuthenticationManager
 import ir.amirroid.simplechat.models.user.User
 import ir.amirroid.simplechat.database.message.services.MessagesService
 import ir.amirroid.simplechat.database.message_status.service.MessageStatusService
+import ir.amirroid.simplechat.database.room.service.RoomsService
 import ir.amirroid.simplechat.database.room_member.service.RoomMemberService
+import ir.amirroid.simplechat.database.user.service.UserService
 import ir.amirroid.simplechat.socket.BaseSocketManager
 import ir.amirroid.simplechat.socket.addEventListener
+import ir.amirroid.simplechat.stream.events.CreateRoomSocketEvent
 import ir.amirroid.simplechat.stream.events.JoinSocketEventListener
 import ir.amirroid.simplechat.stream.events.SeenSocketEventListener
 import ir.amirroid.simplechat.stream.events.SendMessageSocketEventListener
@@ -20,6 +23,8 @@ class StreamSocketManagerImpl(
     private val messagesService: MessagesService,
     private val messageStatusService: MessageStatusService,
     private val roomMemberService: RoomMemberService,
+    private val roomService: RoomsService,
+    private val userService: UserService,
     private val json: Json
 ) : StreamSocketManager {
     val clients = ConcurrentHashMap<String, SocketIOClient>()
@@ -49,7 +54,17 @@ class StreamSocketManagerImpl(
             SeenSocketEventListener(
                 this,
                 messageStatusService,
-                roomMemberService
+                roomMemberService,
+                json
+            )
+        )
+        socketManager.addEventListener(
+            CreateRoomSocketEvent(
+                this,
+                roomMemberService,
+                roomService,
+                userService,
+                json
             )
         )
         socketManager.addEventListener(

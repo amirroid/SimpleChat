@@ -7,5 +7,6 @@ import kotlinx.serialization.Serializable
 data class Token(
     val token: String,
     val expiresAt: SerializedLocalDateTime,
-    val createdAt: SerializedLocalDateTime? = null
+    val createdAt: SerializedLocalDateTime? = null,
+    val userId: String = ""
 )

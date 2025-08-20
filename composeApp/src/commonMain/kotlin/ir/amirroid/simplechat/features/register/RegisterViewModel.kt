@@ -47,7 +47,7 @@ class RegisterViewModel(
     }
 
     fun saveToken(token: Token) = viewModelScope.launch(Dispatchers.IO) {
-        userRepository.saveToken(token)
+        userRepository.saveToken(token.copy(userId = userId))
     }
 
     private fun generateBody() = RegisterUserBody(

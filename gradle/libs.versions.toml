@@ -24,6 +24,7 @@ koin = "4.1.0"
 exposed = "1.0.0-beta-5"
 kstore = "1.0.0"
 room = "2.8.0-rc01"
+socketIo = "0.6.0"
 sqlite = "2.5.2"
 ksp = "2.2.0-2.0.2"
 
@@ -83,6 +84,7 @@ ktor-client-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor" }
 androidx-sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+socket-io = { module = "dev.icerock.moko:socket-io", version.ref = "socketIo" }
 
 
 [plugins]

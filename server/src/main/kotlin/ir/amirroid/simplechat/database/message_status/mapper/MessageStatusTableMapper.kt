@@ -15,7 +15,8 @@ fun ResultRow.toMessageStatus(
     return MessageStatus(
         messageId = messageId,
         user = toUser(statusUserAlias),
-        status = this[statusAlias[MessageStatusTable.status]]
+        status = this[statusAlias[MessageStatusTable.status]],
+        updatedAt = this[statusAlias[MessageStatusTable.updatedAt]]
     )
 }
 
@@ -23,6 +24,7 @@ fun ResultRow.toMessageStatus(): MessageStatus {
     return MessageStatus(
         messageId = this[MessageStatusTable.messageId].value,
         user = toUser(),
-        status = this[MessageStatusTable.status]
+        status = this[MessageStatusTable.status],
+        updatedAt = this[MessageStatusTable.updatedAt]
     )
 }

@@ -9,5 +9,7 @@ import kotlinx.coroutines.flow.Flow
 interface RoomRepository {
     suspend fun getAllRooms(): Response<DefaultRequiredResponse<List<Room>>, NetworkErrors>
     suspend fun fetchAndSaveAllRooms(): Response<DefaultRequiredResponse<List<Room>>, NetworkErrors>
+    suspend fun saveRooms(rooms: List<Room>, withClearData: Boolean = false)
     fun getAllRoomsFromLocal(): Flow<List<Room>>
+    suspend fun updateLastMessageRoom(roomId: Long, message: String)
 }

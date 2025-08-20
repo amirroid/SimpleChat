@@ -1,5 +1,7 @@
 package ir.amirroid.simplechat.di
 
+import ir.amirroid.simplechat.data.repository.chat.ChatRepository
+import ir.amirroid.simplechat.data.repository.chat.ChatRepositoryImpl
 import ir.amirroid.simplechat.data.repository.room.RoomRepository
 import ir.amirroid.simplechat.data.repository.room.RoomRepositoryImpl
 import ir.amirroid.simplechat.data.repository.user.UserRepository
@@ -11,4 +13,5 @@ import org.koin.dsl.module
 val repositoryModule = module {
     factoryOf(::RoomRepositoryImpl).bind<RoomRepository>()
     factoryOf(::UserRepositoryImpl).bind<UserRepository>()
+    factoryOf(::ChatRepositoryImpl).bind<ChatRepository>()
 }

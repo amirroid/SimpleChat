@@ -13,13 +13,11 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
-import ir.amirroid.simplechat.data.repository.user.UserRepository
 import ir.amirroid.simplechat.models.token.Token
 import ir.amirroid.simplechat.utils.API_VERSION
 import ir.amirroid.simplechat.utils.SCHEME
 import ir.amirroid.simplechat.utils.SERVER_HOST
 import ir.amirroid.simplechat.utils.SERVER_PORT
-import kotlinx.coroutines.flow.firstOrNull
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 

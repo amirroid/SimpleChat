@@ -15,10 +15,15 @@ interface RoomDao {
     @Query("SELECT * FROM rooms")
     fun getAllRoomsWithMembersAndUsers(): Flow<List<RoomWithMembers>>
 
+    @Query("DELETE FROM rooms")
+    suspend fun clearAll()
 
     @Upsert
     suspend fun upsertRooms(rooms: List<RoomEntity>)
 
     @Upsert
     suspend fun upsertMembers(members: List<RoomMemberEntity>)
+
+    @Query("UPDATE rooms SET lastMessage = :message WHERE id = :roomId")
+    suspend fun updateLastMessage(roomId: Long, message: String)
 }
